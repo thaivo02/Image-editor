@@ -17,6 +17,7 @@
     "expo-image-picker": "^14.0.2",
     "expo-media-library": "^15.0.0",
     "expo-status-bar": "~1.4.2",
+    "firebase": "^9.16.0",
     "gl-react": "^5.2.0",
     "gl-react-native": "^5.2.1",
     "react": "18.1.0",
@@ -29,5 +30,16 @@
   "devDependencies": {
     "@babel/core": "^7.12.9"
   },
-  "private": true
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thaivo02/Image-editor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thaivo02/Image-editor/issues"
+  },
+  "homepage": "https://github.com/thaivo02/Image-editor#readme",
+  "description": ""
 }
