@@ -1,101 +1,47 @@
-import React, { useRef, useState, createRef } from "react";
-import { View, Text, Dimensions, Button, ToastAndroid } from "react-native";
-import { Surface } from "gl-react-expo";
-import { ScrollView } from "react-native-gesture-handler";
-import * as MediaLibrary from "expo-media-library";
-import Saturate from "../function/Saturate.js";
-import { BlurXY } from "../function/Blur.js";
-import Sliders from "../function/Sliders.js";
+import { View, Button, Image } from "react-native";
+import React, { Component } from "react";
+import * as ImagePicker from "expo-image-picker";
 
-class Home extends React.Component {
-  state = {
-    contrast: 1,
-    saturation: 1,
-    brightness: 1,
-    blur: 1,
-  };
-  setContrast = (value) => {
-    this.setState({
-      contrast: value,
-    });
-  };
+export class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      image: null,
+    };
+  }
 
-  setSaturation = (value) => {
-    this.setState({
-      saturation: value,
+  pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
     });
-  };
-  setBrightness = (value) => {
-    this.setState({
-      brightness: value,
-    });
-  };
-  setBlur = (value) => {
-    this.setState({
-      blur: value,
-    });
+
+    if (!result.canceled) {
+      this.setState({ image: result.assets[0].uri });
+    }
   };
 
-  _downloadImage = async () => {
-    const result = await this.surfaceRef.glView.capture();
-    const asset = await MediaLibrary.createAssetAsync(result.uri);
-    await MediaLibrary.createAlbumAsync("Experiment", asset);
-    ToastAndroid.showWithGravity(
-      "Image Saved to the storage",
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER
-    );
-  };
   render() {
-    const imageURL = "https://i.imgur.com/uTP9Xfr.jpg";
-    const { saturation, brightness, contrast, blur } = this.state;
-    const {
-      setBrightness,
-      setContrast,
-      setSaturation,
-      setBlur,
-      _downloadImage,
-    } = this;
     return (
-      <>
-        <ScrollView>
-          <View>
-            <Surface
-              ref={(ref) => (this.surfaceRef = ref)}
-              style={{ width: Dimensions.get("screen").width, height: 500 }}
-            >
-              <Saturate
-                {...{
-                  contrast: contrast,
-                  saturation: saturation,
-                  brightness: brightness,
-                }}
-              >
-                <BlurXY factor={blur}>
-                  {{
-                    uri: imageURL,
-                  }}
-                </BlurXY>
-              </Saturate>
-            </Surface>
-          </View>
-          <Sliders
-            {...{
-              saturation,
-              setSaturation,
-              contrast,
-              setContrast,
-              brightness,
-              setBrightness,
-              blur,
-              setBlur,
-            }}
+      <View>
+        {/* <Button
+          title="Pick an image from camera roll"
+          onPress={this.pickImage}
+        />
+        {this.state.image && (
+          <Image
+            source={{ uri: this.state.image }}
+            style={{ width: 200, height: 200 }}
           />
-          {/* <View>
-            <Button onPress={_downloadImage} title="Download" />
-          </View> */}
-        </ScrollView>
-      </>
+        )} */}
+        <Button
+          title="Next step"
+          onPress={this.props.navigation.navigate("Edit")}
+        />
+      </View>
     );
   }
 }
