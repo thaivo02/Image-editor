@@ -34,7 +34,7 @@ export class Home extends Component {
     const HandleSignOut = ()=>{
       auth.signOut()
       .then(() =>{
-        navigation.replace("Login")
+        this.props.navigation.replace("Login")
       })
       .catch(error =>alert(error.message))
     }

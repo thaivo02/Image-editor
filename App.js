@@ -6,6 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import styles from "./src/stylesheet/Styles.js";
 import Edit from "./src/screen/Edit.js";
 import Home from "./src/screen/Home.js";
+import Login from "./src/screen/Login.js";
 
 const Stack = createStackNavigator();
 
@@ -14,11 +15,12 @@ export default class App extends Component {
     return (
       <NavigationContainer style={styles.container}>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={Home}></Stack.Screen>
+          <Stack.Screen options={{headerShown : false}} name="Login" component={Login}></Stack.Screen>
+          <Stack.Screen options={{headerShown : false}} name="Home" component={Home}></Stack.Screen>
           <Stack.Screen name="Edit" component={Edit}></Stack.Screen>
           {/* <Edit image={this.state.image} style={styles.button} /> */}
         </Stack.Navigator>
-        <StatusBar style="auto" />
+        
       </NavigationContainer>
     );
   }
