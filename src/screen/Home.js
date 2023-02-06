@@ -1,4 +1,4 @@
-import { View, Button, Image } from "react-native";
+import { View, Button, Image, Dimensions } from "react-native";
 import React, { Component } from "react";
 import * as ImagePicker from "expo-image-picker";
 
@@ -27,19 +27,21 @@ export class Home extends Component {
   render() {
     return (
       <View>
-        {/* <Button
+        <Button
           title="Pick an image from camera roll"
           onPress={this.pickImage}
         />
         {this.state.image && (
           <Image
             source={{ uri: this.state.image }}
-            style={{ width: 200, height: 200 }}
+            style={{ width: Dimensions.get("screen").width, height: 500 }}
           />
-        )} */}
+        )}
         <Button
           title="Next step"
-          onPress={this.props.navigation.navigate("Edit")}
+          onPress={() =>
+            this.props.navigation.navigate("Edit", { image: this.state.image })
+          }
         />
       </View>
     );

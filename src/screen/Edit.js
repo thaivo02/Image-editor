@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-import { View, Image, Dimensions, ToastAndroid } from "react-native";
+import { View, Image, Button, Dimensions, ToastAndroid } from "react-native";
 import { Surface } from "gl-react-expo";
 import { ScrollView } from "react-native-gesture-handler";
 import * as MediaLibrary from "expo-media-library";
 import Saturate from "../function/Saturate.js";
 import { BlurXY } from "../function/Blur.js";
 import Sliders from "../function/Sliders.js";
+import HueRotate from "../function/Hue.js";
+import Sepia from "../function/Sepia.js";
+import Negative from "../function/Negative.js";
+import Flyeye from "../function/Flyeye.js";
 
 export class Edit extends Component {
   constructor(props) {
@@ -14,8 +18,12 @@ export class Edit extends Component {
       contrast: 1,
       saturation: 1,
       brightness: 1,
-      blur: 1,
-      image: props.image,
+      blur: 0,
+      hue: 0,
+      temp: 1,
+      sepia: 0,
+      negative: 0,
+      flyeye: 0,
     };
   }
   setContrast = (value) => {
@@ -23,7 +31,6 @@ export class Edit extends Component {
       contrast: value,
     });
   };
-
   setSaturation = (value) => {
     this.setState({
       saturation: value,
@@ -39,6 +46,31 @@ export class Edit extends Component {
       blur: value,
     });
   };
+  setHue = (value) => {
+    this.setState({
+      hue: value,
+    });
+  };
+  setTemp = (value) => {
+    this.setState({
+      temp: value,
+    });
+  };
+  setSepia = (value) => {
+    this.setState({
+      sepia: value,
+    });
+  };
+  setNegative = (value) => {
+    this.setState({
+      negative: value,
+    });
+  };
+  setFlyeye = (value) => {
+    this.setState({
+      flyeye: value,
+    });
+  };
 
   _downloadImage = async () => {
     const result = await this.surfaceRef.glView.capture();
@@ -51,38 +83,61 @@ export class Edit extends Component {
     );
   };
   render() {
-    const { saturation, brightness, contrast, blur } = this.state;
+    const {
+      saturation,
+      brightness,
+      contrast,
+      blur,
+      hue,
+      sepia,
+      negative,
+      flyeye,
+    } = this.state;
     const URL = "https://i.imgur.com/uTP9Xfr.jpg";
     const {
       setBrightness,
       setContrast,
       setSaturation,
       setBlur,
-      // _downloadImage,
+      setHue,
+      setSepia,
+      setNegative,
+      setFlyeye,
+      _downloadImage,
     } = this;
     return (
       <>
-        <ScrollView>
-          <View>
-            <Surface
-              ref={(ref) => (this.surfaceRef = ref)}
-              style={{ width: Dimensions.get("screen").width, height: 500 }}
+        <View>
+          <Surface
+            ref={(ref) => (this.surfaceRef = ref)}
+            style={{ width: Dimensions.get("screen").width, height: 500 }}
+          >
+            <Saturate
+              {...{
+                contrast: contrast,
+                saturation: saturation,
+                brightness: brightness,
+              }}
             >
-              <Saturate
-                {...{
-                  contrast: contrast,
-                  saturation: saturation,
-                  brightness: brightness,
-                }}
-              >
-                <BlurXY factor={blur}>
-                  {{
-                    uri: this.state.image ? this.state.image : URL,
-                  }}
-                </BlurXY>
-              </Saturate>
-            </Surface>
-          </View>
+              <HueRotate {...{ hue: hue }}>
+                <Sepia {...{ sepia: sepia }}>
+                  <Negative {...{ factor: negative }}>
+                    <Flyeye {...{ flyeye: flyeye }}>
+                      <BlurXY factor={blur}>
+                        {{
+                          uri: this.props.route.params.image
+                            ? this.props.route.params.image
+                            : URL,
+                        }}
+                      </BlurXY>
+                    </Flyeye>
+                  </Negative>
+                </Sepia>
+              </HueRotate>
+            </Saturate>
+          </Surface>
+        </View>
+        <ScrollView>
           <Sliders
             {...{
               saturation,
@@ -93,11 +148,19 @@ export class Edit extends Component {
               setBrightness,
               blur,
               setBlur,
+              hue,
+              setHue,
+              sepia,
+              setSepia,
+              negative,
+              setNegative,
+              flyeye,
+              setFlyeye,
             }}
           />
-          {/* <View>
+          <View>
             <Button onPress={_downloadImage} title="Download" />
-          </View> */}
+          </View>
         </ScrollView>
       </>
     );

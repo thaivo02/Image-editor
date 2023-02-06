@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import React, { Component } from "react";
-import { Button, View, StatusBar } from "react-native";
+import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import styles from "./src/stylesheet/Styles.js";
