@@ -15,12 +15,23 @@ export default class App extends Component {
     return (
       <NavigationContainer style={styles.container}>
         <Stack.Navigator>
-          <Stack.Screen options={{headerShown : false}} name="Login" component={Login}></Stack.Screen>
-          <Stack.Screen options={{headerShown : false}} name="Home" component={Home}></Stack.Screen>
-          <Stack.Screen name="Edit" component={Edit}></Stack.Screen>
+          {/* <Stack.Screen
+            options={{ headerShown: false }}
+            name="Login"
+            component={Login}
+          ></Stack.Screen> */}
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Home"
+            component={Home}
+          ></Stack.Screen>
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Edit"
+            component={Edit}
+          ></Stack.Screen>
           {/* <Edit image={this.state.image} style={styles.button} /> */}
         </Stack.Navigator>
-        
       </NavigationContainer>
     );
   }

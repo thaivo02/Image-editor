@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import { Node, Shaders } from "gl-react";
-import PropTypes from "prop-types";
 
 const shaders = Shaders.create({
   HueRotate: {
