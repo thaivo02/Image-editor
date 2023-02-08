@@ -60,6 +60,14 @@ export default StyleSheet.create({
     borderColor:'#0782F9',
     borderWidth:2
   },
+  ForgetPasswordContainer:{
+    padding:10,
+    justifyContent:'center',
+    alignItems:'center',
+  },
+  ForgetPasswordText:{
+    textDecorationLine:"underline",
+  },
   //Home Style
   HomeContainer:{
     flex:1,
