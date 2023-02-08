@@ -15,11 +15,11 @@ export default class App extends Component {
     return (
       <NavigationContainer style={styles.container}>
         <Stack.Navigator>
-          {/* <Stack.Screen
+          <Stack.Screen
             options={{ headerShown: false }}
             name="Login"
             component={Login}
-          ></Stack.Screen> */}
+          ></Stack.Screen>
           <Stack.Screen
             options={{ headerShown: false }}
             name="Home"
