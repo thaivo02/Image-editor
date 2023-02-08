@@ -8,6 +8,7 @@ import Edit from "./src/screen/Edit.js";
 import Home from "./src/screen/Home.js";
 import Login from "./src/screen/Login.js";
 
+
 const Stack = createStackNavigator();
 
 export default class App extends Component {

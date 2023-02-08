@@ -38,6 +38,7 @@ export class Home extends Component {
       })
       .catch(error =>alert(error.message))
     }
+    
     return (
       <View style={styles.HomeContainer}>
         <TouchableOpacity
