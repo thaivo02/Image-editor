@@ -119,15 +119,25 @@ export class Edit extends Component {
   };
 
   _downloadImage = async () => {
-    const result = await this.surfaceRef.glView.capture();
-    const asset = await MediaLibrary.createAssetAsync(result.uri);
-    await MediaLibrary.createAlbumAsync("Experiment", asset);
-    ToastAndroid.showWithGravity(
-      "Image Saved to the storage",
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER
-    );
+    try {
+        let { status: existingStatus } = await MediaLibrary.requestPermissionsAsync()
+        if (existingStatus !== "granted") {
+          const status = await MediaLibrary.requestPermissionsAsync()
+          existingStatus = status.status;
+        }
+      
+      const result = await this.surfaceRef.glView.capture();
+      const asset = await MediaLibrary.createAssetAsync(result.uri);
+      ToastAndroid.showWithGravity(
+        "Image Saved to the storage",
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
+  
 
   render() {
     const { content, ...effects } = this.state;
@@ -160,10 +170,11 @@ export class Edit extends Component {
               onReset={() => this.setState({ [id]: initialInputs[id] })}
             />
           ))}
-          {/* <View>
-            <Button onPress={_downloadImage} title="Download" />
-          </View> */}
+          
         </ScrollView>
+        <View>
+            <Button onPress={_downloadImage} title="Download" />
+          </View>
       </>
     );
   }
