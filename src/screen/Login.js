@@ -9,7 +9,7 @@ import {
 import React from "react";
 import styles from "../stylesheet/Styles";
 import { TextInput } from "react-native-gesture-handler";
-import { Button } from "react-native-web";
+
 import { auth, Firebase } from "../../Firebaseconfig";
 import { useNavigation } from "@react-navigation/core";
 

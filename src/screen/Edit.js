@@ -5,7 +5,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import * as MediaLibrary from "expo-media-library";
 import Field from "../function/Field.js";
 import ImageEffects from "../function/ImageEffects.js";
-
+import { Firebase } from "../../Firebaseconfig.js";
 
 const percentagePrint = (v) => (v * 100).toFixed(0) + "%";
 const radiantPrint = (r) => ((180 * r) / Math.PI).toFixed(0) + "°";
@@ -121,19 +121,26 @@ export class Edit extends Component {
 
   _downloadImage = async () => {
     try {
-        let { status: existingStatus } = await MediaLibrary.requestPermissionsAsync()
-        if (existingStatus !== "granted") {
-          const status = await MediaLibrary.requestPermissionsAsync()
-          existingStatus = status.status;
-        }
-      
+      let { status: existingStatus } = await MediaLibrary.requestPermissionsAsync()
+      if (existingStatus !== "granted") {
+        const status = await MediaLibrary.requestPermissionsAsync()
+        existingStatus = status.status;
+      }
+    
       const result = await this.surfaceRef.glView.capture();
       const asset = await MediaLibrary.createAssetAsync(result.uri);
-      alert('Image saved successfully to the media library.');
+      
+      const response = await fetch(asset.uri);
+      const blob = await response.blob();
+      
+      const storageRef = Firebase.storage().ref().child('images/' + Date.now()).put(blob);
+      await storageRef;
+      alert('Image saved successfully to the media library and uploaded to Firebase.');
     } catch (error) {
       console.log(error);
     }
   };
+  
   
 
   render() {
