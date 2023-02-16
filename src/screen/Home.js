@@ -103,6 +103,8 @@ export class Home extends Component {
 
     return (
       <View style={styles.HomeContainer}>
+        <View style={{flex: 0.5}}></View>
+        <View style={{flex: 3}}>        
         <TouchableOpacity
           onPress={this.pickImage}
           style={styles.PickImageButton}
@@ -266,15 +268,19 @@ export class Home extends Component {
           style={styles.PickImageButton}
         >
           <Text style={styles.HomeText}>Next Step</Text>
-        </TouchableOpacity>
+        </TouchableOpacity></View>
 
-        <TouchableOpacity
+
+      <View style={{flex: 1}}>
+      <TouchableOpacity
           style={[styles.ButtonSignOut]}
           onPress={HandleSignOut}
         >
           <Text style={styles.LoginText}>Sign Out</Text>
         </TouchableOpacity>
       </View>
+      </View>
+        
     );
   }
 }
