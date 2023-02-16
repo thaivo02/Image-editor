@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { View, Button, Dimensions, ToastAndroid } from "react-native";
+import { View, Button, Dimensions, ToastAndroid,Text,TouchableOpacity } from "react-native";
 import { Surface } from "gl-react-expo";
 import { ScrollView } from "react-native-gesture-handler";
 import * as MediaLibrary from "expo-media-library";
 import Field from "../function/Field.js";
 import ImageEffects from "../function/ImageEffects.js";
+
 
 const percentagePrint = (v) => (v * 100).toFixed(0) + "%";
 const radiantPrint = (r) => ((180 * r) / Math.PI).toFixed(0) + "°";
@@ -128,11 +129,7 @@ export class Edit extends Component {
       
       const result = await this.surfaceRef.glView.capture();
       const asset = await MediaLibrary.createAssetAsync(result.uri);
-      ToastAndroid.showWithGravity(
-        "Image Saved to the storage",
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER
-      );
+      alert('Image saved successfully to the media library.');
     } catch (error) {
       console.log(error);
     }
@@ -173,7 +170,9 @@ export class Edit extends Component {
           
         </ScrollView>
         <View>
-            <Button onPress={_downloadImage} title="Download" />
+            <TouchableOpacity onPress={_downloadImage}>
+                <Text>Save</Text>
+            </TouchableOpacity>
           </View>
       </>
     );
