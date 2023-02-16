@@ -7,6 +7,11 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  f1:{
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   button: {
     backgroundColor: "red",
     flex: 1 / 2,

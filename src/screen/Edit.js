@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { View, Button, Dimensions, ToastAndroid,Text,TouchableOpacity } from "react-native";
+import styles from "../stylesheet/Styles";
+import { View, Button, Dimensions,Text,TouchableOpacity, StatusBar } from "react-native";
 import { Surface } from "gl-react-expo";
 import { ScrollView } from "react-native-gesture-handler";
 import * as MediaLibrary from "expo-media-library";
 import Field from "../function/Field.js";
 import ImageEffects from "../function/ImageEffects.js";
 import { Firebase ,auth } from "../../Firebaseconfig.js";
+import { AntDesign } from '@expo/vector-icons';
 
 const percentagePrint = (v) => (v * 100).toFixed(0) + "%";
 const radiantPrint = (r) => ((180 * r) / Math.PI).toFixed(0) + "°";
@@ -149,10 +151,16 @@ export class Edit extends Component {
     const { _downloadImage } = this;
     return (
       <>
-        <View>
-          <Surface
+        <View style={{position:"relative", alignSelf:"center"}}>
+          <View style={{flex: 0.1, marginTop: 35}}>        
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{ padding: 10 }}>
+            <AntDesign name="arrowleft" size={24} color="black" />
+          </TouchableOpacity>
+          </View>
+          <View style={{flex:1,alignItems:"center", alignContent:"center", alignSelf:"center"}}> 
+            <Surface
             ref={(ref) => (this.surfaceRef = ref)}
-            style={{ width: Dimensions.get("screen").width, height: 500 }}
+            style={{ width: Dimensions.get("screen").width -50, height: 450}}
           >
             <ImageEffects
               {...effects}
@@ -163,8 +171,9 @@ export class Edit extends Component {
               }
             />
           </Surface>
-        </View>
-        <ScrollView>
+          </View>
+         <View style={{flex:0.8}}>
+          <ScrollView style={{height:"50%"}}>
           {fields.map(({ id, ...props }) => (
             <Field
               key={id}
@@ -174,13 +183,16 @@ export class Edit extends Component {
               onReset={() => this.setState({ [id]: initialInputs[id] })}
             />
           ))}
-          
-        </ScrollView>
+          </ScrollView>
+         </View>
         <View>
             <TouchableOpacity onPress={_downloadImage}>
                 <Text>Save</Text>
             </TouchableOpacity>
           </View>
+        </View>
+        
+
       </>
     );
   }
