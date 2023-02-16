@@ -5,7 +5,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import * as MediaLibrary from "expo-media-library";
 import Field from "../function/Field.js";
 import ImageEffects from "../function/ImageEffects.js";
-import { Firebase } from "../../Firebaseconfig.js";
+import { Firebase ,auth } from "../../Firebaseconfig.js";
 
 const percentagePrint = (v) => (v * 100).toFixed(0) + "%";
 const radiantPrint = (r) => ((180 * r) / Math.PI).toFixed(0) + "°";
@@ -133,7 +133,7 @@ export class Edit extends Component {
       const response = await fetch(asset.uri);
       const blob = await response.blob();
       
-      const storageRef = Firebase.storage().ref().child('images/' + Date.now()).put(blob);
+      const storageRef = Firebase.storage().ref().child(auth.currentUser.email +"/" + Date.now()).put(blob);
       await storageRef;
       alert('Image saved successfully to the media library and uploaded to Firebase.');
     } catch (error) {
