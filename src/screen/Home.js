@@ -105,12 +105,7 @@ export class Home extends Component {
       <View style={styles.HomeContainer}>
         <View style={{flex: 0.5}}></View>
         <View style={{flex: 3}}>        
-        <TouchableOpacity
-          onPress={this.pickImage}
-          style={styles.PickImageButton}
-        >
-          <Text style={styles.HomeText}> Pick an image from camera roll</Text>
-        </TouchableOpacity>
+       
 
         {this.state.startCamera ? (
           <View
@@ -261,16 +256,21 @@ export class Home extends Component {
             style={{ width: Dimensions.get("screen").width, height: 500 }}
           />
         )}
+         <TouchableOpacity
+          onPress={this.pickImage}
+          style={styles.PickImageButton}
+        >
+          <Text style={styles.HomeText}> Pick an image from camera roll</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity
           onPress={() =>
             this.props.navigation.navigate("Edit", { image: this.state.image })
           }
-          style={styles.PickImageButton}
+          style={styles.NextStep}
         >
           <Text style={styles.HomeText}>Next Step</Text>
         </TouchableOpacity></View>
-
-
       <View style={{flex: 1}}>
       <TouchableOpacity
           style={[styles.ButtonSignOut]}

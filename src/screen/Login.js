@@ -25,7 +25,7 @@ const Login = () => {
   useEffect(() => {
     const unsub = auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace("Home");
+        navigation.replace("Main");
       }
     });
     return unsub;

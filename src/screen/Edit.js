@@ -137,7 +137,7 @@ export class Edit extends Component {
       
       const storageRef = Firebase.storage().ref().child(auth.currentUser.email +"/" + Date.now()).put(blob);
       await storageRef;
-      alert('Image saved successfully to the media library and uploaded to Firebase.');
+      alert('Image saved successfully to the media library.');
     } catch (error) {
       console.log(error);
     }
@@ -160,7 +160,7 @@ export class Edit extends Component {
           <View style={{flex:1,alignItems:"center", alignContent:"center", alignSelf:"center"}}> 
             <Surface
             ref={(ref) => (this.surfaceRef = ref)}
-            style={{ width: Dimensions.get("screen").width -50, height: 450}}
+            style={{ width: Dimensions.get("screen").width -50, height: 400}}
           >
             <ImageEffects
               {...effects}
