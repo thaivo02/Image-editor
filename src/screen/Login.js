@@ -104,12 +104,15 @@ const Login = () => {
         <View style={styles.ButtonContainer}>
           <TouchableOpacity onPress={HandleLogIn} style={styles.ButtonLogin}>
             <Text style={styles.LoginText}>Login</Text>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </View>
+
+          <View style={{flexDirection:"row"}}>
           <TouchableOpacity
             onPress={HandleSignUp}
-            style={[styles.ButtonLogin, styles.ButtonOutline]}
+            style={styles.RegisterContainer}
           >
-            <Text style={styles.RegisterText}>Register</Text>
+            <Text style={styles.ForgetPasswordText}>Register</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={ForgetPassword}
@@ -117,7 +120,9 @@ const Login = () => {
           >
             <Text style={styles.ForgetPasswordText}>Forget Password</Text>
           </TouchableOpacity>
-        </View>
+          </View>
+          
+
       </KeyboardAvoidingView>
   );
 };

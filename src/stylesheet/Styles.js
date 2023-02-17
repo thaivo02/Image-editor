@@ -101,6 +101,12 @@ export default StyleSheet.create({
     alignItems:'center',
   },
   ForgetPasswordText:{
+    flex: 1,
+    textDecorationLine:"underline",
+    alignItems:"flex-end"
+  },
+  RegisterText:{
+    flex: 1,
     textDecorationLine:"underline",
   },
   //Home Style
