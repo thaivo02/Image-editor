@@ -39,18 +39,24 @@ export default StyleSheet.create({
     width:'80%',
     flexDirection: 'row',
     alignItems: 'center',
+    borderBottomColor: "#217093",
+    borderBottomWidth: 1,
+    // backgroundColor:'#f3fafd',
+    // borderRadius: 20
 
   },
   Input:{
     flex: 1,
     color: "#353538",
-    backgroundColor:'#f3fafd',
     paddingHorizontal:15,
     paddingVertical:10,
-    borderRadius:10,
     marginTop:5,
-    borderColor: "#217093",
-    borderWidth:2,
+    borderLeftWidth: 1,
+    borderLeftColor:   "#217093",
+    
+    // borderColor: "#217093",
+    // borderWidth:2,
+    marginLeft: 10,
     height: Dimensions.get("screen").height*0.06,
     
   },

@@ -12,7 +12,7 @@ import styles from "../stylesheet/Styles";
 import { TextInput } from "react-native-gesture-handler";
 import { auth, Firebase } from "../../Firebaseconfig";
 import { useNavigation } from "@react-navigation/core";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 
 
 const Login = () => {
@@ -65,61 +65,60 @@ const Login = () => {
       .catch((error) => alert("Please type your email!!"));
   };
   return (
-    <KeyboardAvoidingView style={styles.Login} behavior="height">
-      <View style={styles.Container}>
-      <Image
-        style={styles.logo}
-        source={require('./asset/logo.png')}
-      />
-      </View>
-      <View style={styles.InputContainer}>
-        <TextInput
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          style={styles.Input}
-        />
-      </View>
-        <View style={styles.InputContainer}>
-        <TextInput
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          style={styles.Input}
-          secureTextEntry={hidePassword}
-        />
-        <TouchableOpacity 
-        onPress={toggleHidePassword} 
-        style={styles.iconContainer}>
-        <Ionicons
-          name={hidePassword ? 'eye-off' : 'eye'}
-          size={24}
-          color="black"
-          style={{
-            padding: 10,
-          }}
-        />
-      </TouchableOpacity>
+      <KeyboardAvoidingView style={styles.Login} behavior="height">
+        <View style={styles.Container}>
+          <Image
+            style={styles.logo}
+            source={require('./asset/logo.png')} />
         </View>
-        
-      <View style={styles.ButtonContainer}>
-        <TouchableOpacity onPress={HandleLogIn} style={styles.ButtonLogin}>
-          <Text style={styles.LoginText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={HandleSignUp}
-          style={[styles.ButtonLogin, styles.ButtonOutline]}
-        >
-          <Text style={styles.RegisterText}>Register</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={ForgetPassword}
-          style={styles.ForgetPasswordContainer}
-        >
-          <Text style={styles.ForgetPasswordText}>Forget Password</Text>
-        </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+        <View style={styles.InputContainer}>
+          
+          <Ionicons name="person-outline" size={24} color="black" style={styles.iconContainer}/>
+          <TextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            style={styles.Input} />
+        </View>
+        <View style={styles.InputContainer}>
+          <Feather name="lock" size={24} color="black" style={styles.iconContainer}/>
+          <TextInput
+            placeholder="Password"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            style={styles.Input}
+            secureTextEntry={hidePassword} />
+          <TouchableOpacity
+            onPress={toggleHidePassword}
+            >
+            <Ionicons
+              name={hidePassword ? 'eye-off' : 'eye'}
+              size={24}
+              color="black"
+              style={{
+                padding: 10,
+              }} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.ButtonContainer}>
+          <TouchableOpacity onPress={HandleLogIn} style={styles.ButtonLogin}>
+            <Text style={styles.LoginText}>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={HandleSignUp}
+            style={[styles.ButtonLogin, styles.ButtonOutline]}
+          >
+            <Text style={styles.RegisterText}>Register</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={ForgetPassword}
+            style={styles.ForgetPasswordContainer}
+          >
+            <Text style={styles.ForgetPasswordText}>Forget Password</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
   );
 };
 
