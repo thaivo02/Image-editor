@@ -136,6 +136,11 @@ export default StyleSheet.create({
     borderRadius:10,
     alignItems:'center',
     marginTop:40,
-  }
+  },
+  logo:{
+    width: Dimensions.get("screen").width*0.27,
+    height: Dimensions.get("screen").width*0.27,
+    marginBottom: 40,
+  },
   
 });
