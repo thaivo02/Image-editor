@@ -100,6 +100,9 @@ export default StyleSheet.create({
     borderRadius:10,
     alignItems:'center',
     marginTop:40,
+  },
+  NextStep:{
+    
   }
   
 });

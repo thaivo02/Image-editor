@@ -7,6 +7,7 @@ import styles from "./src/stylesheet/Styles.js";
 import Edit from "./src/screen/Edit.js";
 import Home from "./src/screen/Home.js";
 import Login from "./src/screen/Login.js";
+import Main from "./src/screen/Main.js";
 
 
 const Stack = createStackNavigator();
@@ -20,6 +21,11 @@ export default class App extends Component {
             options={{ headerShown: false }}
             name="Login"
             component={Login}
+          ></Stack.Screen>
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Main"
+            component={Main}
           ></Stack.Screen>
           <Stack.Screen
             options={{ headerShown: false }}
