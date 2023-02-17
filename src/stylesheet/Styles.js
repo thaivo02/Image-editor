@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions} from "react-native";
+
 
 export default StyleSheet.create({
   container: {
@@ -7,6 +8,7 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   f1:{
     flex: 1,
     alignItems: "center",
@@ -24,17 +26,39 @@ export default StyleSheet.create({
     justifyContent:'center',
     alignItems:'center',
   },
-  InputContainer:{
-    width:'80%'
+  pre_input:{
+    paddingTop: 20,
+    marginHorizontal: 10,
+    color: '#217093',
+    fontSize: 16,
+    fontFamily: "Arial",
+    fontStyle: "Bold",
   },
-  Input:{
-    backgroundColor:'white',
-    paddingHorizontal:15,
-    paddingVertical:10,
-    borderRadius:15,
-    marginTop:5,
+  InputContainer:{
+    marginBottom: 20,
+    width:'80%',
+    flexDirection: 'row',
+    alignItems: 'center',
 
   },
+  Input:{
+    flex: 1,
+    color: "#353538",
+    backgroundColor:'#f3fafd',
+    paddingHorizontal:15,
+    paddingVertical:10,
+    borderRadius:10,
+    marginTop:5,
+    borderColor: "#217093",
+    borderWidth:2,
+    height: Dimensions.get("screen").height*0.06,
+    
+  },
+  iconContainer:{
+    padding: 10,
+  },
+
+
   ButtonContainer:{
     width:'60%',
     justifyContent:'center',
@@ -100,6 +124,10 @@ export default StyleSheet.create({
     borderRadius:10,
     alignItems:'center',
     marginTop:40,
-  }
-  
+  },
+   logo: {
+    width: Dimensions.get("screen").width*0.3,
+    height: Dimensions.get("screen").width*0.3,
+    marginBottom: 20,
+  },
 });

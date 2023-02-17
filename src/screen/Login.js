@@ -2,6 +2,7 @@ import { Component, useEffect, useState } from "react";
 import {
   View,
   Text,
+  Image,
   StyleSheet,
   KeyboardAvoidingView,
   TouchableOpacity,
@@ -9,13 +10,16 @@ import {
 import React from "react";
 import styles from "../stylesheet/Styles";
 import { TextInput } from "react-native-gesture-handler";
-
 import { auth, Firebase } from "../../Firebaseconfig";
 import { useNavigation } from "@react-navigation/core";
+import { Ionicons } from '@expo/vector-icons';
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [hidePassword, setHidePassword] = useState(true);
+
 
   const navigation = useNavigation();
   useEffect(() => {
@@ -26,6 +30,11 @@ const Login = () => {
     });
     return unsub;
   }, []);
+
+
+  const toggleHidePassword = () => {
+    setHidePassword(!hidePassword);
+  };
 
   const HandleSignUp = () => {
     auth
@@ -57,6 +66,12 @@ const Login = () => {
   };
   return (
     <KeyboardAvoidingView style={styles.Login} behavior="height">
+      <View style={styles.Container}>
+      <Image
+        style={styles.logo}
+        source={require('./asset/logo.png')}
+      />
+      </View>
       <View style={styles.InputContainer}>
         <TextInput
           placeholder="Email"
@@ -64,14 +79,29 @@ const Login = () => {
           onChangeText={(text) => setEmail(text)}
           style={styles.Input}
         />
+      </View>
+        <View style={styles.InputContainer}>
         <TextInput
           placeholder="Password"
           value={password}
           onChangeText={(text) => setPassword(text)}
           style={styles.Input}
-          secureTextEntry
+          secureTextEntry={hidePassword}
         />
-      </View>
+        <TouchableOpacity 
+        onPress={toggleHidePassword} 
+        style={styles.iconContainer}>
+        <Ionicons
+          name={hidePassword ? 'eye-off' : 'eye'}
+          size={24}
+          color="black"
+          style={{
+            padding: 10,
+          }}
+        />
+      </TouchableOpacity>
+        </View>
+        
       <View style={styles.ButtonContainer}>
         <TouchableOpacity onPress={HandleLogIn} style={styles.ButtonLogin}>
           <Text style={styles.LoginText}>Login</Text>
