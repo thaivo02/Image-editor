@@ -23,7 +23,7 @@ export default StyleSheet.create({
   //login style
   Login: {
     flex:1,
-    justifyContent:'center',
+    justifyContent:"center",
     alignItems:'center',
   },
   pre_input:{
@@ -48,11 +48,11 @@ export default StyleSheet.create({
   Input:{
     flex: 1,
     color: "#353538",
-    paddingHorizontal:15,
+    // paddingHorizontal:15,
     paddingVertical:10,
     marginTop:5,
-    borderLeftWidth: 1,
-    borderLeftColor:   "#217093",
+    // borderLeftWidth: 1,
+    // borderLeftColor:   "#217093",
     
     // borderColor: "#217093",
     // borderWidth:2,
@@ -69,13 +69,13 @@ export default StyleSheet.create({
     width:'60%',
     justifyContent:'center',
     alignItems:'center',
-    marginTop:40,
+    marginTop:20,
   },
   ButtonLogin:{
-    backgroundColor:'#0782F9',
-    width:'100%',
+    backgroundColor:'#1b5ede',
+    width:'50%',
     padding:15,
-    borderRadius:10,
+    borderRadius:50,
     alignItems:'center'
 
   },
@@ -97,17 +97,34 @@ export default StyleSheet.create({
   },
   ForgetPasswordContainer:{
     padding:10,
-    justifyContent:'center',
-    alignItems:'center',
+    justifyContent:'flex-end',
+    alignItems:'flex-end',
   },
   ForgetPasswordText:{
-    flex: 1,
+    textAlign: 'right',
     textDecorationLine:"underline",
-    alignItems:"flex-end"
+    left: Dimensions.get("screen").width*0.25,
+    textAlign:'right',
+    color: '#0782F9',
+    fontWeight: 'bold',
+  },
+
+  RegisterContainer:{
+    // padding:50,
+    justifyContent:'flex-start',
+    alignItems:'center',
+    
+  },
+  dontaccText:{
+    fontSize: 13,
+    marginBottom: 10,
+    // color: '#0782F9',
+    // fontWeight: 'bold',
   },
   RegisterText:{
-    flex: 1,
-    textDecorationLine:"underline",
+    fontSize: 15,
+    color: '#0782F9',
+    fontWeight: 'bold',
   },
   //Home Style
   HomeContainer:{
@@ -140,7 +157,7 @@ export default StyleSheet.create({
   logo:{
     width: Dimensions.get("screen").width*0.27,
     height: Dimensions.get("screen").width*0.27,
-    marginBottom: 40,
+    marginBottom: Dimensions.get("screen").height*0.07,
   },
   
 });

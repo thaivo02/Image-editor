@@ -66,10 +66,11 @@ const Login = () => {
   };
   return (
       <KeyboardAvoidingView style={styles.Login} behavior="height">
-        <View style={styles.Container}>
+        <View style={{flexDirection: "column", alignContent: 'center', alignItems:'center'}}>
           <Image
             style={styles.logo}
             source={require('./asset/logo.png')} />
+            {/* <Text>Login to Sync your Data to Cloud</Text> */}
         </View>
         <View style={styles.InputContainer}>
           
@@ -78,7 +79,9 @@ const Login = () => {
             placeholder="Email"
             value={email}
             onChangeText={(text) => setEmail(text)}
-            style={styles.Input} />
+            style={styles.Input} 
+            placeholderTextColor = 'gray'
+            />
         </View>
         <View style={styles.InputContainer}>
           <Feather name="lock" size={24} color="black" style={styles.iconContainer}/>
@@ -87,39 +90,47 @@ const Login = () => {
             value={password}
             onChangeText={(text) => setPassword(text)}
             style={styles.Input}
+            placeholderTextColor = 'gray'
             secureTextEntry={hidePassword} />
           <TouchableOpacity
             onPress={toggleHidePassword}
             >
             <Ionicons
               name={hidePassword ? 'eye-off' : 'eye'}
-              size={24}
+              size={22}
               color="black"
               style={{
                 padding: 10,
               }} />
           </TouchableOpacity>
         </View>
-
+        <View> 
+         
+        <TouchableOpacity
+            onPress={ForgetPassword}
+            style={styles.ForgetPasswordContainer}
+          >
+            <Text style={styles.ForgetPasswordText}>Forget Password</Text>
+          </TouchableOpacity>
+        </View>
         <View style={styles.ButtonContainer}>
           <TouchableOpacity onPress={HandleLogIn} style={styles.ButtonLogin}>
             <Text style={styles.LoginText}>Login</Text>
             </TouchableOpacity>
           </View>
 
-          <View style={{flexDirection:"row"}}>
+          <View style={{flexDirection:"column", top: 30, marginTop: 40,}}>
+          <Text style={styles.dontaccText}>  
+              Don't have account?
+            </Text>
           <TouchableOpacity
             onPress={HandleSignUp}
             style={styles.RegisterContainer}
           >
-            <Text style={styles.ForgetPasswordText}>Register</Text>
+
+            <Text style={styles.RegisterText}>SIGN UP</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={ForgetPassword}
-            style={styles.ForgetPasswordContainer}
-          >
-            <Text style={styles.ForgetPasswordText}>Forget Password</Text>
-          </TouchableOpacity>
+
           </View>
           
 
