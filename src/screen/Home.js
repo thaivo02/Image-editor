@@ -1,15 +1,23 @@
-import { View, Button, Image, Dimensions, Text } from "react-native";
+import { View, Button, Image, Dimensions, Text,useState,FlatList } from "react-native";
 import React, { Component } from "react";
 import * as ImagePicker from "expo-image-picker";
 import styles from "../stylesheet/Styles";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { auth } from "../../Firebaseconfig";
+import { Firebase ,auth } from "../../Firebaseconfig.js";
 import CameraPreview from "../function/CameraPreview";
 import { Camera } from "expo-camera";
 
 import { useNavigation } from "@react-navigation/core";
 
-let camera = Camera;
+let camera = null;
+
+
+
+
+
+
+
+
 
 export class Home extends Component {
   constructor(props) {
@@ -21,9 +29,12 @@ export class Home extends Component {
       capturedImage: null,
       cameraType: Camera.Constants.Type.back,
       flashMode: "off",
+      imageUrls: [],
     };
   }
-
+  componentDidMount() {
+    this.getImages();
+  }
   __startCamera = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
     console.log(status);
@@ -90,8 +101,24 @@ export class Home extends Component {
       this.setState({ image: result.assets[0].uri });
     }
   };
-
+  getImages = async () => {
+    const imageUrls = [];
+    const imagesRef = Firebase.storage().ref().child(auth.currentUser.email);
+    const result = await imagesRef.listAll();
+    
+      result.items.forEach((itemRef) => {
+        itemRef.getDownloadURL().then((url) => {
+          imageUrls.push(url);
+          this.setState({
+            images:imageUrls
+          })
+        });
+      });
+    this.setState({ imageUrls });
+  };
+ 
   render() {
+    
     const HandleSignOut = () => {
       auth
         .signOut()
@@ -104,9 +131,21 @@ export class Home extends Component {
     return (
       <View style={styles.HomeContainer}>
         <View style={{flex: 0.5}}></View>
-        <View style={{flex: 3}}>        
-       
-
+        <View style={{flex: 3}}>
+            <FlatList
+                  data={this.state.imageUrls}
+                  
+                  numColumns={4}
+                  contentContainerStyle={{flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  justifyContent: 'space-between'}}
+                  keyExtractor={(item) => item}
+                  renderItem={({ item }) => (
+                    <Image
+                      source={{ uri: item }}
+                      style={{ width: Dimensions.get("screen").width/4, height: Dimensions.get("screen").width/4}}
+                    />
+                  )}/>      
         {this.state.startCamera ? (
           <View
             style={{
@@ -249,11 +288,10 @@ export class Home extends Component {
             </TouchableOpacity>
           </View>
         )}
-
         {this.state.image && (
           <Image
             source={{ uri: this.state.image }}
-            style={{ width: Dimensions.get("screen").width, height: 500 }}
+            style={{ width: Dimensions.get("screen").width, height: 300 }}
           />
         )}
          <TouchableOpacity
@@ -267,7 +305,8 @@ export class Home extends Component {
           onPress={() =>
             this.props.navigation.navigate("Edit", { image: this.state.image })
           }
-          style={styles.NextStep}
+          style={styles.PickImageButton}
+          
         >
           <Text style={styles.HomeText}>Next Step</Text>
         </TouchableOpacity></View>
