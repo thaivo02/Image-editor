@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View, TouchableOpacity, ImageBackground } from "react-native";
 
-const CameraPreview = ({ photo, retakePicture, savePhoto }) => {
+const CameraPreview = ({ photo, retakePicture, editPhoto }) => {
   console.log("photo", photo);
   return (
     <View
@@ -52,7 +52,7 @@ const CameraPreview = ({ photo, retakePicture, savePhoto }) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={savePhoto}
+              onPress={editPhoto}
               style={{
                 width: 130,
                 height: 40,
@@ -67,7 +67,7 @@ const CameraPreview = ({ photo, retakePicture, savePhoto }) => {
                   fontSize: 20,
                 }}
               >
-                save photo
+                Edit photo
               </Text>
             </TouchableOpacity>
           </View>

@@ -34,7 +34,6 @@ export class DeviceCamera extends Component {
     console.log(photo);
     this.setState({ previewVisible: true, capturedImage: photo });
   };
-  __savePhoto = () => {};
 
   __retakePicture = async () => {
     this.setState({ previewVisible: false, capturedImage: null });
@@ -71,7 +70,11 @@ export class DeviceCamera extends Component {
             {this.state.previewVisible && this.state.capturedImage ? (
               <CameraPreview
                 photo={this.state.capturedImage}
-                savePhoto={this.__savePhoto}
+                editPhoto={() =>
+                  this.props.navigation.navigate("Edit", {
+                    image: this.state.capturedImage.uri,
+                  })
+                }
                 retakePicture={this.__retakePicture}
               />
             ) : (
