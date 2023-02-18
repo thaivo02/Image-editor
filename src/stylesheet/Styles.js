@@ -151,7 +151,7 @@ export default StyleSheet.create({
     width: "100%",
     padding: 15,
     alignItems: "center",
-    marginTop: 40,
+    marginTop: 20,
   },
   logo: {
     width: Dimensions.get("screen").width * 0.27,

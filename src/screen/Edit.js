@@ -157,7 +157,7 @@ export class Edit extends Component {
         <View style={{ position: "relative", alignSelf: "center" }}>
           <View style={{ flex: 0.1, marginTop: 35 }}>
             <TouchableOpacity
-              onPress={() => this.props.navigation.goBack()}
+              onPress={() => this.props.navigation.navigate("Home")}
               style={{ padding: 10 }}
             >
               <AntDesign name="arrowleft" size={24} color="black" />
