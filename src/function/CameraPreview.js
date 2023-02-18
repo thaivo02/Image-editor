@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, TouchableOpacity, ImageBackground } from "react-native";
 
 const CameraPreview = ({ photo, retakePicture, savePhoto }) => {
-  console.log("sdsfds", photo);
+  console.log("photo", photo);
   return (
     <View
       style={{
