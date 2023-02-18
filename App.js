@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import React, { Component } from "react";
-import { StatusBar } from "react-native";
+import { StatusBar, RootStackScreen } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import styles from "./src/stylesheet/Styles.js";
@@ -15,6 +15,11 @@ export default class App extends Component {
   render() {
     return (
       <NavigationContainer style={styles.container}>
+        <StatusBar
+          animated={true}
+          backgroundColor="transparent"
+          barStyle={"dark-content"}
+          translucent={true} />
         <Stack.Navigator>
           <Stack.Screen
             options={{ headerShown: false }}
