@@ -134,6 +134,13 @@ export default StyleSheet.create({
     borderRadius: 7,
     alignItems: "center",
   },
+  SaveImageButton: {
+    backgroundColor: "#0782F9",
+    width: "100%",
+    padding: 15,
+    marginTop: 10,
+    alignItems: "center",
+  },
   HomeText: {
     color: "white",
     fontWeight: "700",

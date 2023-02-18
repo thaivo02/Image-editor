@@ -96,29 +96,14 @@ const fields = [
     prettyPrint: percentagePrint,
   },
 ];
-
 export class Edit extends Component {
   constructor(props) {
-    // super(props);
-    // this.state = {
-    //   contrast: 1,
-    //   saturation: 1,
-    //   brightness: 1,
-    //   blur: 0,
-    //   hue: 0,
-    //   temp: 1,
-    //   sepia: 0,
-    //   negative: 0,
-    //   flyeye: 0,
-    // };
     super(props);
     this.state = {
       content: {
         uri: "http://i.imgur.com/wxqlQkh.jpg",
         type: "image/jpg",
         mainType: "image",
-        // width: 512,
-        // height: 340
       },
       // uploaded: null,
       ...initialInputs,
@@ -126,6 +111,23 @@ export class Edit extends Component {
   }
   onLoadNewContent = (content) => {
     this.setState({ content });
+  };
+
+  _upload = async () => {
+    try {
+      const result = await this.surfaceRef.glView.capture();
+
+      const response = await fetch(result.uri);
+      const blob = await response.blob();
+
+      const storageRef = Firebase.storage()
+        .ref()
+        .child(auth.currentUser.email + "/" + Date.now())
+        .put(blob);
+      await storageRef;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   _downloadImage = async () => {
@@ -140,14 +142,6 @@ export class Edit extends Component {
       const result = await this.surfaceRef.glView.capture();
       const asset = await MediaLibrary.createAssetAsync(result.uri);
 
-      const response = await fetch(asset.uri);
-      const blob = await response.blob();
-
-      const storageRef = Firebase.storage()
-        .ref()
-        .child(auth.currentUser.email + "/" + Date.now())
-        .put(blob);
-      await storageRef;
       alert("Image saved successfully to the media library.");
     } catch (error) {
       console.log(error);
@@ -181,7 +175,7 @@ export class Edit extends Component {
               ref={(ref) => (this.surfaceRef = ref)}
               style={{
                 width: Dimensions.get("screen").width,
-                height: 450,
+                height: 425,
               }}
             >
               <ImageEffects
@@ -194,8 +188,8 @@ export class Edit extends Component {
               />
             </Surface>
           </View>
-          <View style={{ flex: 0.8 }}>
-            <ScrollView style={{ height: "50%" }}>
+          <View style={{ flex: 0.65 }}>
+            <ScrollView>
               {fields.map(({ id, ...props }) => (
                 <Field
                   key={id}
@@ -207,9 +201,19 @@ export class Edit extends Component {
               ))}
             </ScrollView>
           </View>
-          <View>
-            <TouchableOpacity onPress={_downloadImage}>
+          <View style={{ flex: 0.25 }}>
+            <TouchableOpacity
+              onPress={this._downloadImage}
+              style={styles.SaveImageButton}
+            >
               <Text>Save</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={this._upload}
+              style={styles.SaveImageButton}
+            >
+              <Text>Upload to cloud</Text>
             </TouchableOpacity>
           </View>
         </View>
