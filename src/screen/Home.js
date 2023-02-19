@@ -18,14 +18,14 @@ export class Home extends Component {
     super(props);
     this.state = {
       image: null,
-      imageUrls: [],
+      images: [],
       refreshing: false,
     };
   }
   componentDidMount() {
     this.getImages();
   }
-
+ 
   pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -40,20 +40,21 @@ export class Home extends Component {
     }
   };
   getImages = async () => {
-    const imageUrls = [];
     const imagesRef = Firebase.storage().ref().child(auth.currentUser.email);
     const result = await imagesRef.listAll();
-
-    result.items.forEach((itemRef) => {
-      itemRef.getDownloadURL().then((url) => {
-        imageUrls.push(url);
-        this.setState({
-          images: imageUrls,
-        });
-      });
-    });
-    this.setState({ imageUrls });
+    const images = await Promise.all(result.items.map(async (itemRef) => {
+      const url = await itemRef.getDownloadURL();
+      const metadata = await itemRef.getMetadata();
+      return { url, time: metadata.timeCreated };
+    }));
+    const sortedImageUrls = images
+      .sort((a, b) => a.time - b.time)
+      .map(image => image.url);
+    this.setState({ imageUrls: sortedImageUrls });
+    {console.log(sortedImageUrls)}
   };
+  
+  
 
   render() {
     const HandleSignOut = () => {
@@ -85,7 +86,7 @@ export class Home extends Component {
                 // flexWrap: "wrap",
               }}
               showsHorizontalScrollIndicator={false}
-              keyExtractor={(item) => item}
+              keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
                 <TouchableHighlight
                   onPress={() =>
@@ -124,7 +125,7 @@ export class Home extends Component {
                   source={{ uri: this.state.image }}
                   style={{
                     width: Dimensions.get("screen").width,
-                    height: 800,
+                    height: 500,
                     resizeMode: "contain",
                   }}
                 />
