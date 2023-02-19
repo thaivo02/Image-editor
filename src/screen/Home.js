@@ -105,13 +105,12 @@ export class Home extends Component {
             }}
             keyExtractor={(item) => item}
             renderItem={({ item }) => (
-              <TouchableOpacity  onPress={() =>
+              <TouchableOpacity onPress={() => {
+                this.setState({ image: item })
                 this.props.navigation.navigate("Edit", {
-                  image: item,
+                  image: this.state.image,
                 })
-              }
-            >
-
+              }}>
                 <Image
                   source={{ uri: item }}
                   style={{
@@ -125,12 +124,12 @@ export class Home extends Component {
             )}
           />
 
-          {this.state.image && (
+          {/* {this.state.image && (
             <Image
               source={{ uri: this.state.image }}
               style={{ width: Dimensions.get("screen").width, height: 300 }}
             />
-          )}
+          )} */}
           <TouchableOpacity
             onPress={this.pickImage}
             style={styles.PickImageButton}
