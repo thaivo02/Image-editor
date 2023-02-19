@@ -14,7 +14,7 @@ import * as MediaLibrary from "expo-media-library";
 import Field from "../function/Field.js";
 import ImageEffects from "../function/ImageEffects.js";
 import { Firebase, auth } from "../../Firebaseconfig.js";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign , Feather} from "@expo/vector-icons";
 
 const percentagePrint = (v) => (v * 100).toFixed(0) + "%";
 const radiantPrint = (r) => ((180 * r) / Math.PI).toFixed(0) + "°";
@@ -155,12 +155,19 @@ export class Edit extends Component {
     return (
       <>
         <View style={{ position: "relative", alignSelf: "center" }}>
-          <View style={{ flex: 0.1, marginTop: 35 }}>
+          <View style={{ flex: 0.12, marginTop: 35 , flexDirection:'row'}}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("Home")}
-              style={{ padding: 10 }}
+              style={{ padding: 15, flex:1 }}
             >
               <AntDesign name="arrowleft" size={24} color="black" />
+            </TouchableOpacity>
+            <View style={{flex:10}}></View>
+            <TouchableOpacity
+              onPress={this._downloadImage}
+              style={{ padding: 15, flex:1 }}
+            >
+              <Feather name="download" size={24} color="black" />
             </TouchableOpacity>
           </View>
           <View
@@ -202,13 +209,6 @@ export class Edit extends Component {
             </ScrollView>
           </View>
           <View style={{ flex: 0.25 }}>
-            <TouchableOpacity
-              onPress={this._downloadImage}
-              style={styles.SaveImageButton}
-            >
-              <Text>Save</Text>
-            </TouchableOpacity>
-
             <TouchableOpacity
               onPress={this._upload}
               style={styles.SaveImageButton}
