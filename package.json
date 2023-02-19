@@ -20,8 +20,10 @@
     "@react-navigation/stack": "^6.3.12",
     "expo": "~47.0.12",
     "expo-camera": "^13.1.0",
+    "expo-file-system": "^15.1.1",
     "expo-image-picker": "~14.0.2",
     "expo-media-library": "^15.0.0",
+    "expo-sharing": "^11.0.1",
     "expo-status-bar": "~1.4.2",
     "firebase": "^9.16.0",
     "gl-react": "^5.2.0",
@@ -34,6 +36,7 @@
     "react-native": "0.70.5",
     "react-native-circle-button": "^1.0.9",
     "react-native-gesture-handler": "~2.8.0",
+    "react-native-image-crop-picker": "^0.39.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-reanimated": "~2.12.0",
     "react-native-web": "~0.18.9"

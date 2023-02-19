@@ -1,26 +1,25 @@
 import {
   View,
-  Button,
   Image,
   Dimensions,
   Text,
-  useState,
   FlatList,
+  TouchableHighlight,
+  Alert,
 } from "react-native";
 import React, { Component } from "react";
 import * as ImagePicker from "expo-image-picker";
 import styles from "../stylesheet/Styles";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Firebase, auth } from "../../Firebaseconfig.js";
-
-import { useNavigation } from "@react-navigation/core";
-
+import { StatusBar } from "expo-status-bar";
 export class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       image: null,
       imageUrls: [],
+      refreshing: false,
     };
   }
   componentDidMount() {
@@ -87,49 +86,33 @@ export class Home extends Component {
 
     return (
       <View style={styles.HomeContainer}>
-        <View style={{ flex: 0.5 }}>
-
-        </View>
-
-        <View style={{ flex: 4 }}>
-          <Text>Recently Edit</Text>
-
+        <View style={{ flex: 0.5 }}></View>
+        <View style={{ flex: 3 }}>
           <FlatList
             data={this.state.imageUrls}
-            numColumns='3'
-            horizontal={0}
+            numColumns={4}
             contentContainerStyle={{
-              // flexDirection: "column",
+              flexDirection: "row",
               // flexWrap: "wrap",
-              // justifyContent: "space-between",
+              justifyContent: "space-between",
             }}
             keyExtractor={(item) => item}
             renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => {
-                this.setState({ image: item })
-                this.props.navigation.navigate("Edit", {
-                  image: this.state.image,
-                })
-              }}>
-                <Image
-                  source={{ uri: item }}
-                  style={{
-                    width: Dimensions.get("screen").width / 3.5,
-                    height: Dimensions.get("screen").width / 3.5,
-                    borderRadius: 15,
-                    margin: 8,
-                  }}
-                />
-              </TouchableOpacity>
+              <Image
+                source={{ uri: item }}
+                style={{
+                  width: Dimensions.get("screen").width / 4,
+                  height: Dimensions.get("screen").width / 4,
+                }}
+              />
             )}
           />
-
-          {/* {this.state.image && (
+          {this.state.image && (
             <Image
               source={{ uri: this.state.image }}
               style={{ width: Dimensions.get("screen").width, height: 300 }}
             />
-          )} */}
+          )}
           <TouchableOpacity
             onPress={this.pickImage}
             style={styles.PickImageButton}
@@ -138,16 +121,15 @@ export class Home extends Component {
           </TouchableOpacity>
 
           <TouchableOpacity
-  onPress={() =>
-    this.props.navigation.navigate("Edit", {
-      image: this.state.image,
-    })
-  }
-  style={styles.PickImageButton}
->
-  <Text style={styles.HomeText}>Next Step</Text>
-</TouchableOpacity>
-
+            onPress={() =>
+              this.props.navigation.navigate("Edit", {
+                image: this.state.image,
+              })
+            }
+            style={styles.PickImageButton}
+          >
+            <Text style={styles.HomeText}>Next Step</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate("Camera")}
             style={styles.PickImageButton}

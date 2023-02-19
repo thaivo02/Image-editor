@@ -8,6 +8,7 @@ import Edit from "./src/screen/Edit.js";
 import Home from "./src/screen/Home.js";
 import Login from "./src/screen/Login.js";
 import DeviceCamera from "./src/screen/DeviceCamera.js";
+import ShowImage from "./src/screen/ShowImage.js";
 
 const Stack = createStackNavigator();
 
@@ -19,7 +20,8 @@ export default class App extends Component {
           animated={true}
           backgroundColor="transparent"
           barStyle={"dark-content"}
-          translucent={true} />
+          translucent={true}
+        />
         <Stack.Navigator>
           <Stack.Screen
             options={{ headerShown: false }}
@@ -40,6 +42,11 @@ export default class App extends Component {
             options={{ headerShown: false }}
             name="Camera"
             component={DeviceCamera}
+          ></Stack.Screen>
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="ImagePreview"
+            component={ShowImage}
           ></Stack.Screen>
           {/* <Edit image={this.state.image} style={styles.button} /> */}
         </Stack.Navigator>

@@ -1,13 +1,20 @@
 import React, { Component } from "react";
 import styles from "../stylesheet/Styles";
-import { View, Button, Dimensions,Text,TouchableOpacity, StatusBar } from "react-native";
+import {
+  View,
+  Button,
+  Dimensions,
+  Text,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
 import { Surface } from "gl-react-expo";
 import { ScrollView } from "react-native-gesture-handler";
 import * as MediaLibrary from "expo-media-library";
 import Field from "../function/Field.js";
 import ImageEffects from "../function/ImageEffects.js";
-import { Firebase ,auth } from "../../Firebaseconfig.js";
-import { AntDesign } from '@expo/vector-icons';
+import { Firebase, auth } from "../../Firebaseconfig.js";
+import { AntDesign } from "@expo/vector-icons";
 
 const percentagePrint = (v) => (v * 100).toFixed(0) + "%";
 const radiantPrint = (r) => ((180 * r) / Math.PI).toFixed(0) + "°";
@@ -89,29 +96,14 @@ const fields = [
     prettyPrint: percentagePrint,
   },
 ];
-
 export class Edit extends Component {
   constructor(props) {
-    // super(props);
-    // this.state = {
-    //   contrast: 1,
-    //   saturation: 1,
-    //   brightness: 1,
-    //   blur: 0,
-    //   hue: 0,
-    //   temp: 1,
-    //   sepia: 0,
-    //   negative: 0,
-    //   flyeye: 0,
-    // };
     super(props);
     this.state = {
       content: {
         uri: "http://i.imgur.com/wxqlQkh.jpg",
         type: "image/jpg",
         mainType: "image",
-        // width: 512,
-        // height: 340
       },
       // uploaded: null,
       ...initialInputs,
@@ -121,29 +113,40 @@ export class Edit extends Component {
     this.setState({ content });
   };
 
-  _downloadImage = async () => {
+  _upload = async () => {
     try {
-      let { status: existingStatus } = await MediaLibrary.requestPermissionsAsync()
-      if (existingStatus !== "granted") {
-        const status = await MediaLibrary.requestPermissionsAsync()
-        existingStatus = status.status;
-      }
-    
       const result = await this.surfaceRef.glView.capture();
-      const asset = await MediaLibrary.createAssetAsync(result.uri);
-      
-      const response = await fetch(asset.uri);
+
+      const response = await fetch(result.uri);
       const blob = await response.blob();
-      
-      const storageRef = Firebase.storage().ref().child(auth.currentUser.email +"/" + Date.now()).put(blob);
+
+      const storageRef = Firebase.storage()
+        .ref()
+        .child(auth.currentUser.email + "/" + Date.now())
+        .put(blob);
       await storageRef;
-      alert('Image saved successfully to the media library.');
     } catch (error) {
       console.log(error);
     }
   };
-  
-  
+
+  _downloadImage = async () => {
+    try {
+      let { status: existingStatus } =
+        await MediaLibrary.requestPermissionsAsync();
+      if (existingStatus !== "granted") {
+        const status = await MediaLibrary.requestPermissionsAsync();
+        existingStatus = status.status;
+      }
+
+      const result = await this.surfaceRef.glView.capture();
+      const asset = await MediaLibrary.createAssetAsync(result.uri);
+
+      alert("Image saved successfully to the media library.");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   render() {
     const { content, ...effects } = this.state;
@@ -151,48 +154,69 @@ export class Edit extends Component {
     const { _downloadImage } = this;
     return (
       <>
-        <View style={{position:"relative", alignSelf:"center"}}>
-          <View style={{flex: 0.1, marginTop: 35}}>        
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{ padding: 10 }}>
-            <AntDesign name="arrowleft" size={24} color="black" />
-          </TouchableOpacity>
+        <View style={{ position: "relative", alignSelf: "center" }}>
+          <View style={{ flex: 0.1, marginTop: 35 }}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("Home")}
+              style={{ padding: 10 }}
+            >
+              <AntDesign name="arrowleft" size={24} color="black" />
+            </TouchableOpacity>
           </View>
-          <View style={{flex:1,alignItems:"center", alignContent:"center", alignSelf:"center"}}> 
-            <Surface
-            ref={(ref) => (this.surfaceRef = ref)}
-            style={{ width: Dimensions.get("screen").width -50, height: 400}}
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              alignContent: "center",
+              alignSelf: "center",
+            }}
           >
-            <ImageEffects
-              {...effects}
-              uri={
-                this.props.route.params.image
-                  ? this.props.route.params.image
-                  : URL
-              }
-            />
-          </Surface>
+            <Surface
+              ref={(ref) => (this.surfaceRef = ref)}
+              style={{
+                width: Dimensions.get("screen").width,
+                height: 425,
+              }}
+            >
+              <ImageEffects
+                {...effects}
+                uri={
+                  this.props.route.params.image
+                    ? this.props.route.params.image
+                    : URL
+                }
+              />
+            </Surface>
           </View>
-         <View style={{flex:0.8}}>
-          <ScrollView style={{height:"50%"}}>
-          {fields.map(({ id, ...props }) => (
-            <Field
-              key={id}
-              {...props}
-              value={effects[id]}
-              onChange={(value) => this.setState({ [id]: value })}
-              onReset={() => this.setState({ [id]: initialInputs[id] })}
-            />
-          ))}
-          </ScrollView>
-         </View>
-        <View>
-            <TouchableOpacity onPress={_downloadImage}>
-                <Text>Save</Text>
+          <View style={{ flex: 0.65 }}>
+            <ScrollView>
+              {fields.map(({ id, ...props }) => (
+                <Field
+                  key={id}
+                  {...props}
+                  value={effects[id]}
+                  onChange={(value) => this.setState({ [id]: value })}
+                  onReset={() => this.setState({ [id]: initialInputs[id] })}
+                />
+              ))}
+            </ScrollView>
+          </View>
+          <View style={{ flex: 0.25 }}>
+            <TouchableOpacity
+              onPress={this._downloadImage}
+              style={styles.SaveImageButton}
+            >
+              <Text>Save</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={this._upload}
+              style={styles.SaveImageButton}
+            >
+              <Text>Upload to cloud</Text>
             </TouchableOpacity>
           </View>
         </View>
-        
-
       </>
     );
   }
