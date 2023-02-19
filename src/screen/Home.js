@@ -53,8 +53,6 @@ export class Home extends Component {
     this.setState({ imageUrls: sortedImageUrls });
     {console.log(sortedImageUrls)}
   };
-  
-  
 
   render() {
     const HandleSignOut = () => {
@@ -237,3 +235,4 @@ export class Home extends Component {
 }
 
 export default Home;
+    
