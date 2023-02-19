@@ -48,31 +48,12 @@ export class Home extends Component {
       itemRef.getDownloadURL().then((url) => {
         imageUrls.push(url);
         this.setState({
-          imageUrls: imageUrls,
+          images: imageUrls,
         });
       });
     });
+    this.setState({ imageUrls });
   };
-
-
-  onImagePress = (item) => {
-    this.props.navigation.navigate("Edit", {
-      image: item,
-    });
-  };
-
-  deleteImage = async (imageUri) => {
-    try {
-      await Firebase.storage().refFromURL(imageUri).delete();
-      let imageUrls = this.state.imageUrls.filter((image) => image !== imageUri);
-      this.setState({ imageUrls });
-      this.getImages();
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-
 
   render() {
     const HandleSignOut = () => {
@@ -86,65 +67,169 @@ export class Home extends Component {
 
     return (
       <View style={styles.HomeContainer}>
-        <View style={{ flex: 0.5 }}></View>
-        <View style={{ flex: 3 }}>
-          <FlatList
-            data={this.state.imageUrls}
-            numColumns={4}
-            contentContainerStyle={{
-              flexDirection: "row",
-              // flexWrap: "wrap",
-              justifyContent: "space-between",
+        <View>
+          <View
+            style={{
+              flex: 0.5,
+              marginTop: 40,
+              justifyContent: "center",
             }}
-            keyExtractor={(item) => item}
-            renderItem={({ item }) => (
-              <Image
-                source={{ uri: item }}
-                style={{
-                  width: Dimensions.get("screen").width / 4,
-                  height: Dimensions.get("screen").width / 4,
-                }}
-              />
-            )}
-          />
-          {this.state.image && (
-            <Image
-              source={{ uri: this.state.image }}
-              style={{ width: Dimensions.get("screen").width, height: 300 }}
+          >
+            <FlatList
+              data={this.state.imageUrls}
+              horizontal
+              // numColumns={4}
+              contentContainerStyle={{
+                paddingHorizontal: 10,
+                // flexDirection: "row",
+                // flexWrap: "wrap",
+              }}
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item) => item}
+              renderItem={({ item }) => (
+                <TouchableHighlight
+                  onPress={() =>
+                    this.props.navigation.navigate("ImagePreview", {
+                      image: item,
+                    })
+                  }
+                  underlayColor="transparent"
+                >
+                  <Image
+                    source={{ uri: item }}
+                    style={{
+                      width: Dimensions.get("screen").width / 6,
+                      height: Dimensions.get("screen").width / 6,
+                      resizeMode: "contain",
+                      borderRadius: 100,
+                      marginRight: 10,
+                      marginTop: 4,
+                    }}
+                  />
+                </TouchableHighlight>
+              )}
+              refreshing={this.state.refreshing}
+              onRefresh={this.getImages}
             />
-          )}
-          <TouchableOpacity
-            onPress={this.pickImage}
-            style={styles.PickImageButton}
+          </View>
+          <View
+            style={{
+              flex: 4,
+              justifyContent: "center",
+            }}
           >
-            <Text style={styles.HomeText}> Pick an image from camera roll</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() =>
-              this.props.navigation.navigate("Edit", {
-                image: this.state.image,
-              })
-            }
-            style={styles.PickImageButton}
+            {this.state.image ? (
+              this.state.image && (
+                <Image
+                  source={{ uri: this.state.image }}
+                  style={{
+                    width: Dimensions.get("screen").width,
+                    height: 800,
+                    resizeMode: "contain",
+                  }}
+                />
+              )
+            ) : (
+              <Text style={{ textAlign: "center" }}>
+                Select an image from storage or camera
+              </Text>
+            )}
+          </View>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "flex-end",
+            }}
           >
-            <Text style={styles.HomeText}>Next Step</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("Camera")}
-            style={styles.PickImageButton}
-          >
-            <Text style={styles.HomeText}>Camera</Text>
-          </TouchableOpacity>
+            {this.state.image ? (
+              <View>
+                <TouchableOpacity
+                  onPress={() =>
+                    this.props.navigation.navigate("Edit", {
+                      image: this.state.image,
+                    })
+                  }
+                  style={styles.PickImageButton}
+                >
+                  <Text style={styles.HomeText}>Edit photo</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.PickImageButton}
+                  onPress={() =>
+                    Alert.alert("Take a picture to edit", "Choose an option", [
+                      { text: "Cancel" },
+                      {
+                        text: "Camera",
+                        onPress: () => {
+                          this.props.navigation.navigate("Camera");
+                        },
+                      },
+                      { text: "Library", onPress: this.pickImage },
+                    ])
+                  }
+                >
+                  <Text style={styles.HomeText}>Choose another photo</Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <View>
+                <TouchableOpacity
+                  style={styles.PickImageButton}
+                  onPress={() =>
+                    Alert.alert("Take a picture to edit", "Choose an option", [
+                      { text: "Cancel" },
+                      {
+                        text: "Camera",
+                        onPress: () => {
+                          this.props.navigation.navigate("Camera");
+                        },
+                      },
+                      { text: "Library", onPress: this.pickImage },
+                    ])
+                  }
+                >
+                  <Text style={styles.HomeText}>Edit photo</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.PickImageButton}
+                  disabled={true}
+                >
+                  <Text style={styles.HomeText}>Choose another photo</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+            {/* {this.state.image ? (
+              <TouchableOpacity
+                style={styles.PickImageButton}
+                onPress={() =>
+                  Alert.alert("Take a picture to edit", "Choose an option", [
+                    { text: "Cancel" },
+                    {
+                      text: "Camera",
+                      onPress: () => {
+                        this.props.navigation.navigate("Camera");
+                      },
+                    },
+                    { text: "Library", onPress: this.pickImage },
+                  ])
+                }
+              >
+                <Text style={styles.HomeText}>Choose another photo</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity style={styles.PickImageButton} disabled={true}>
+                <Text style={styles.HomeText}>Choose another photo</Text>
+              </TouchableOpacity>
+            )} */}
+            <TouchableOpacity
+              style={[styles.ButtonSignOut]}
+              onPress={HandleSignOut}
+            >
+              <Text style={styles.LoginText}>Sign Out</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={{ flex: 1 }}>
-          <TouchableOpacity
-            style={[styles.ButtonSignOut]}
-            onPress={HandleSignOut}
-          >
-            <Text style={styles.LoginText}>Sign Out</Text>
-          </TouchableOpacity>
-        </View>
+        <StatusBar style="auto" />
       </View>
     );
   }
