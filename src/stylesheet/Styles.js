@@ -126,6 +126,14 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  RecentText:{
+    alignContent:"center",
+    alignSelf:'center',
+    fontWeight: "700",
+    fontSize: 20,
+    marginTop: 10,
+    color:"gray"
+  },
   PickImageButton: {
     backgroundColor: "#0782F9",
     width: "100%",

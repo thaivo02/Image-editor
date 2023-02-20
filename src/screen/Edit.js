@@ -195,7 +195,7 @@ export class Edit extends Component {
               />
             </Surface>
           </View>
-          <View style={{ flex: 0.65 }}>
+          <View style={{ flex: 0.7, justifyContent:'center', alignItems: "center"}}>
             <ScrollView>
               {fields.map(({ id, ...props }) => (
                 <Field
@@ -208,7 +208,7 @@ export class Edit extends Component {
               ))}
             </ScrollView>
           </View>
-          <View style={{ flex: 0.25 }}>
+          <View style={{ flex: 0.15 }}>
             <TouchableOpacity
               onPress={this._upload}
               style={styles.SaveImageButton}

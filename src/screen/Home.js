@@ -13,6 +13,7 @@ import styles from "../stylesheet/Styles";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Firebase, auth } from "../../Firebaseconfig.js";
 import { StatusBar } from "expo-status-bar";
+import { MaterialIcons } from '@expo/vector-icons';
 export class Home extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +26,7 @@ export class Home extends Component {
   componentDidMount() {
     this.getImages();
   }
- 
+
   pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -51,7 +52,7 @@ export class Home extends Component {
       .sort((a, b) => a.time - b.time)
       .map(image => image.url);
     this.setState({ imageUrls: sortedImageUrls });
-    {console.log(sortedImageUrls)}
+    { console.log(sortedImageUrls) }
   };
 
   render() {
@@ -65,19 +66,40 @@ export class Home extends Component {
     };
 
     return (
+
       <View style={styles.HomeContainer}>
-        <View>
+        <View style={{ flex: 0.4 }}></View>
+        <View style={{ flex: 10 }}>
+          <View style={{ flexDirection: "row", }}>
+            <View style={{ flex: 10 }}>
+
+            </View>
+            <View style={{ flex: 10, justifyContent: 'center', alignItems: 'center', }}>
+              <Text style={styles.RecentText}>Recent Photos</Text>
+            </View>
+            <View style={{ flex: 7 }}>
+
+            </View>
+            <TouchableOpacity
+              style={{ flex: 1, margin: 6, marginRight: 15 }}
+              onPress={HandleSignOut}
+            >
+              <MaterialIcons name="logout" size={24} color="#FF0000" />
+
+            </TouchableOpacity>
+
+          </View>
           <View
             style={{
               flex: 0.5,
-              marginTop: 40,
+              marginTop: 15,
               justifyContent: "center",
             }}
           >
             <FlatList
               data={this.state.imageUrls}
               horizontal
-              // numColumns={4}
+              numColumns={1}
               contentContainerStyle={{
                 paddingHorizontal: 10,
                 // flexDirection: "row",
@@ -176,14 +198,16 @@ export class Home extends Component {
                   style={styles.PickImageButton}
                   onPress={() =>
                     Alert.alert("Take a picture to edit", "Choose an option", [
-                      { text: "Cancel" },
                       {
                         text: "Camera",
                         onPress: () => {
                           this.props.navigation.navigate("Camera");
                         },
                       },
+
                       { text: "Library", onPress: this.pickImage },
+                      { text: "Cancel" },
+
                     ])
                   }
                 >
@@ -221,18 +245,17 @@ export class Home extends Component {
               </TouchableOpacity>
             )} */}
             <TouchableOpacity
-              style={[styles.ButtonSignOut]}
-              onPress={HandleSignOut}
+
             >
               <Text style={styles.LoginText}>Sign Out</Text>
             </TouchableOpacity>
           </View>
         </View>
         <StatusBar style="auto" />
+        <View style={{flex: 0.3}}></View>
       </View>
     );
   }
 }
 
 export default Home;
-    
