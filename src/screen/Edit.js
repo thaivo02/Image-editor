@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   StatusBar,
+  SafeAreaView,
 } from "react-native";
 import { Surface } from "gl-react-expo";
 import { ScrollView } from "react-native-gesture-handler";
@@ -154,23 +155,23 @@ export class Edit extends Component {
     const { _downloadImage } = this;
     return (
       <>
-        <View style={{ position: "relative", alignSelf: "center" }}>
-          <View style={{ flex: 0.12, marginTop: 35 , flexDirection:'row'}}>
+        <SafeAreaView style={{ position: "absolute", alignSelf: "center" }}>
+          <SafeAreaView style={{ flex: 0.12, flexDirection:'row'}}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("Home")}
               style={{ padding: 15, flex:1 }}
             >
               <AntDesign name="arrowleft" size={24} color="black" />
             </TouchableOpacity>
-            <View style={{flex:10}}></View>
+            <SafeAreaView style={{flex:10}}></SafeAreaView>
             <TouchableOpacity
               onPress={this._downloadImage}
               style={{ padding: 15, flex:1 }}
             >
               <Feather name="download" size={24} color="black" />
             </TouchableOpacity>
-          </View>
-          <View
+          </SafeAreaView>
+          <SafeAreaView
             style={{
               flex: 1,
               alignItems: "center",
@@ -194,8 +195,8 @@ export class Edit extends Component {
                 }
               />
             </Surface>
-          </View>
-          <View style={{ flex: 0.7, justifyContent:'center', alignItems: "center"}}>
+          </SafeAreaView>
+          <SafeAreaView style={{ flex: 0.7, justifyContent:'center', alignItems: "center"}}>
             <ScrollView>
               {fields.map(({ id, ...props }) => (
                 <Field
@@ -207,16 +208,8 @@ export class Edit extends Component {
                 />
               ))}
             </ScrollView>
-          </View>
-          <View style={{ flex: 0.15 }}>
-            <TouchableOpacity
-              onPress={this._upload}
-              style={styles.SaveImageButton}
-            >
-              <Text>Upload to cloud</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+          </SafeAreaView>
+        </SafeAreaView>
       </>
     );
   }

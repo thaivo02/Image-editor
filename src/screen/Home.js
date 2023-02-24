@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableHighlight,
   Alert,
+  SafeAreaView,
 } from "react-native";
 import React, { Component } from "react";
 import * as ImagePicker from "expo-image-picker";
@@ -67,12 +68,10 @@ export class Home extends Component {
 
     return (
 
-      <View style={styles.HomeContainer}>
-        <View style={{ flex: 0.4 }}></View>
+      <SafeAreaView style={styles.HomeContainer}>
         <View style={{ flex: 10 }}>
           <View style={{ flexDirection: "row", }}>
             <View style={{ flex: 10 }}>
-
             </View>
             <View style={{ flex: 10, justifyContent: 'center', alignItems: 'center', }}>
               <Text style={styles.RecentText}>Recent Photos</Text>
@@ -91,7 +90,7 @@ export class Home extends Component {
           </View>
           <View
             style={{
-              flex: 0.5,
+              flex: 0.6,
               marginTop: 15,
               justifyContent: "center",
             }}
@@ -244,16 +243,11 @@ export class Home extends Component {
                 <Text style={styles.HomeText}>Choose another photo</Text>
               </TouchableOpacity>
             )} */}
-            <TouchableOpacity
-
-            >
-              <Text style={styles.LoginText}>Sign Out</Text>
-            </TouchableOpacity>
           </View>
         </View>
         <StatusBar style="auto" />
         <View style={{flex: 0.3}}></View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
