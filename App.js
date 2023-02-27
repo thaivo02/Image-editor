@@ -48,6 +48,11 @@ export default class App extends Component {
             name="ImagePreview"
             component={ShowImage}
           ></Stack.Screen>
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Draw"
+            component={Draw}
+          ></Stack.Screen>
           {/* <Edit image={this.state.image} style={styles.button} /> */}
         </Stack.Navigator>
       </NavigationContainer>
