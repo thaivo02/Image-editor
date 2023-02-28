@@ -23,11 +23,7 @@ export default class App extends Component {
           translucent={true}
         />
         <Stack.Navigator>
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="Login"
-            component={Login}
-          ></Stack.Screen>
+        
           <Stack.Screen
             options={{ headerShown: false }}
             name="Home"
@@ -48,11 +44,7 @@ export default class App extends Component {
             name="ImagePreview"
             component={ShowImage}
           ></Stack.Screen>
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="Draw"
-            component={Draw}
-          ></Stack.Screen>
+        
           {/* <Edit image={this.state.image} style={styles.button} /> */}
         </Stack.Navigator>
       </NavigationContainer>

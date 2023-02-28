@@ -70,68 +70,7 @@ export class Home extends Component {
 
       <SafeAreaView style={styles.HomeContainer}>
         <View style={{ flex: 10 }}>
-          <View style={{ flexDirection: "row", }}>
-            <View style={{ flex: 10 }}>
-            </View>
-            <View style={{ flex: 10, justifyContent: 'center', alignItems: 'center', }}>
-              <Text style={styles.RecentText}>Recent Photos</Text>
-            </View>
-            <View style={{ flex: 7 }}>
 
-            </View>
-            <TouchableOpacity
-              style={{ flex: 1, margin: 6, marginRight: 15 }}
-              onPress={HandleSignOut}
-            >
-              <MaterialIcons name="logout" size={24} color="#FF0000" />
-
-            </TouchableOpacity>
-
-          </View>
-          <View
-            style={{
-              flex: 0.6,
-              marginTop: 15,
-              justifyContent: "center",
-            }}
-          >
-            <FlatList
-              data={this.state.imageUrls}
-              horizontal
-              numColumns={1}
-              contentContainerStyle={{
-                paddingHorizontal: 10,
-                // flexDirection: "row",
-                // flexWrap: "wrap",
-              }}
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => (
-                <TouchableHighlight
-                  onPress={() =>
-                    this.props.navigation.navigate("ImagePreview", {
-                      image: item,
-                    })
-                  }
-                  underlayColor="transparent"
-                >
-                  <Image
-                    source={{ uri: item }}
-                    style={{
-                      width: Dimensions.get("screen").width / 6,
-                      height: Dimensions.get("screen").width / 6,
-                      resizeMode: "contain",
-                      borderRadius: 100,
-                      marginRight: 10,
-                      marginTop: 4,
-                    }}
-                  />
-                </TouchableHighlight>
-              )}
-              refreshing={this.state.refreshing}
-              onRefresh={this.getImages}
-            />
-          </View>
           <View
             style={{
               flex: 4,
