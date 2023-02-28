@@ -12,7 +12,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { Surface } from "gl-react-expo";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TextInput } from "react-native-gesture-handler";
 import * as MediaLibrary from "expo-media-library";
 import Field from "../function/Field.js";
 import ImageEffects from "../function/ImageEffects.js";
@@ -188,12 +188,13 @@ export class Edit extends Component {
               alignSelf: "center",
             }}
           >
-
+            
             <Surface
               ref={(ref) => (this.surfaceRef = ref)}
               style={{
                 width: Dimensions.get("screen").width,
                 height: 425,
+                zIndex : 1
               }}
             >
               <ImageEffects
@@ -204,13 +205,19 @@ export class Edit extends Component {
                     : URL
                 }
               />
+              <Text style={{ position: "absolute", top: 0, left: 0, color: "black", fontSize: 24 }}>Hello </Text>
             </Surface>
           </SafeAreaView>
           <SafeAreaView>
             <TouchableHighlight
-            onPress={() => this.setState({ blur: 2, sepia: 0.3})}
+            onPress={() => this.setState({blur : 2, sepia:0.3  } )}
             style={{ padding: 10 }}>
                 <Text>Blur</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+            onPress={() => this.setState({saturation:0  } )}
+            style={{ padding: 10 }}>
+                <Text>GrayScale</Text>
             </TouchableHighlight>
           </SafeAreaView>
           <SafeAreaView style={{ flex: 0.5, justifyContent: 'center', alignItems: "center" }}>
