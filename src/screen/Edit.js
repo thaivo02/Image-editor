@@ -208,7 +208,7 @@ export class Edit extends Component {
           </SafeAreaView>
           <SafeAreaView>
             <TouchableHighlight
-            onPress={() => this.setState({ blur: 5 })}
+            onPress={() => this.setState({ blur: 2, sepia: 0.3})}
             style={{ padding: 10 }}>
                 <Text>Blur</Text>
             </TouchableHighlight>
