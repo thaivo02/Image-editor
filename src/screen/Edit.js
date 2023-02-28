@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import { Canvas, CanvasRef } from '@benjeau/react-native-draw';
+import React, { Component, useRef } from "react";
 import styles from "../stylesheet/Styles";
 import {
   View,
@@ -6,6 +7,7 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
+  TouchableHighlight,
   StatusBar,
   SafeAreaView,
 } from "react-native";
@@ -15,10 +17,11 @@ import * as MediaLibrary from "expo-media-library";
 import Field from "../function/Field.js";
 import ImageEffects from "../function/ImageEffects.js";
 import { Firebase, auth } from "../../Firebaseconfig.js";
-import { AntDesign , Feather} from "@expo/vector-icons";
+import { AntDesign, Feather } from "@expo/vector-icons";
 
 const percentagePrint = (v) => (v * 100).toFixed(0) + "%";
 const radiantPrint = (r) => ((180 * r) / Math.PI).toFixed(0) + "°";
+
 
 const initialInputs = {
   blur: 0,
@@ -105,6 +108,8 @@ export class Edit extends Component {
         uri: "http://i.imgur.com/wxqlQkh.jpg",
         type: "image/jpg",
         mainType: "image",
+        canvasRef: useRef < CanvasRef > (null),
+
       },
       // uploaded: null,
       ...initialInputs,
@@ -149,24 +154,28 @@ export class Edit extends Component {
     }
   };
 
+
+
   render() {
     const { content, ...effects } = this.state;
     const URL = "https://i.imgur.com/uTP9Xfr.jpg";
     const { _downloadImage } = this;
+
+
     return (
       <>
-        <SafeAreaView style={{ position: "absolute", alignSelf: "center" }}>
-          <SafeAreaView style={{ flex: 0.12, flexDirection:'row'}}>
+        <SafeAreaView style={{  alignSelf: "center" }}>
+          <SafeAreaView style={{ flex: 0.12, flexDirection: 'row' }}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("Home")}
-              style={{ padding: 15, flex:1 }}
+              style={{ padding: 15, flex: 1 }}
             >
               <AntDesign name="arrowleft" size={24} color="black" />
             </TouchableOpacity>
-            <SafeAreaView style={{flex:10}}></SafeAreaView>
+            <SafeAreaView style={{ flex: 10 }}></SafeAreaView>
             <TouchableOpacity
               onPress={this._downloadImage}
-              style={{ padding: 15, flex:1 }}
+              style={{ padding: 15, flex: 1 }}
             >
               <Feather name="download" size={24} color="black" />
             </TouchableOpacity>
@@ -179,6 +188,7 @@ export class Edit extends Component {
               alignSelf: "center",
             }}
           >
+
             <Surface
               ref={(ref) => (this.surfaceRef = ref)}
               style={{
@@ -196,7 +206,14 @@ export class Edit extends Component {
               />
             </Surface>
           </SafeAreaView>
-          <SafeAreaView style={{ flex: 0.7, justifyContent:'center', alignItems: "center"}}>
+          <SafeAreaView>
+            <TouchableHighlight
+            onPress={() => this.setState({ blur: 5 })}
+            style={{ padding: 10 }}>
+                <Text>Blur</Text>
+            </TouchableHighlight>
+          </SafeAreaView>
+          <SafeAreaView style={{ flex: 0.5, justifyContent: 'center', alignItems: "center" }}>
             <ScrollView>
               {fields.map(({ id, ...props }) => (
                 <Field
