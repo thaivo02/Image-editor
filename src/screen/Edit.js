@@ -7,8 +7,8 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
-  TouchableHighlight,
   StatusBar,
+  Image,
   SafeAreaView,
 } from "react-native";
 import { Surface } from "gl-react-expo";
@@ -164,7 +164,7 @@ export class Edit extends Component {
 
     return (
       <>
-        <SafeAreaView style={{  alignSelf: "center" }}>
+        <SafeAreaView style={{ alignSelf: "center" }}>
           <SafeAreaView style={{ flex: 0.12, flexDirection: 'row' }}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("Home")}
@@ -188,13 +188,13 @@ export class Edit extends Component {
               alignSelf: "center",
             }}
           >
-            
+
             <Surface
               ref={(ref) => (this.surfaceRef = ref)}
               style={{
                 width: Dimensions.get("screen").width,
                 height: 425,
-                zIndex : 1
+                zIndex: 1
               }}
             >
               <ImageEffects
@@ -208,17 +208,81 @@ export class Edit extends Component {
               <Text style={{ position: "absolute", top: 0, left: 0, color: "black", fontSize: 24 }}>Hello </Text>
             </Surface>
           </SafeAreaView>
-          <SafeAreaView>
-            <TouchableHighlight
-            onPress={() => this.setState({blur : 2, sepia:0.3  } )}
-            style={{ padding: 10 }}>
-                <Text>Blur</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-            onPress={() => this.setState({saturation:0  } )}
-            style={{ padding: 10 }}>
-                <Text>GrayScale</Text>
-            </TouchableHighlight>
+          <SafeAreaView style={styles.filterContainer}>
+          <TouchableOpacity
+              onPress={() => this.setState({
+                blur: 0, 
+                sepia: 0,  
+                saturation: 1,
+                contrast: 1,
+                brightness: 1,
+                negative: 0,
+                hue: 0,
+                flyeye: 0,
+              })}
+              style={styles.filterButton}>
+              <Text style={styles.filterText}>Origin</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.setState({
+                blur: 0, 
+                sepia: 0,  
+                saturation: 1.4,
+                contrast: 0.8,
+                brightness: 1.2,
+                negative: 0,
+                hue: 0,
+                flyeye: 0,
+                })}
+              style={styles.filterButton}>
+                <><Image  source={require('./asset/vivid.png')} style={styles.filterImage} />
+                <Text style={styles.filterText}>Vivid</Text></>
+                
+                
+
+              </TouchableOpacity>
+              <TouchableOpacity
+              onPress={() => this.setState({
+                blur: 0,
+                saturation: 0.9,
+                contrast: 1.8,
+                brightness: 0.8,
+                negative: 0,
+                hue: 0,
+                sepia: 0,
+                flyeye: 0,
+                })}
+              style={styles.filterButton}>
+              <Text style={styles.filterText}>Dramatic</Text>
+              </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.setState({
+                blur: 0, 
+                sepia: 1,  
+                saturation: 0.5,
+                contrast: 0.7,
+                brightness: 1.45,
+                negative: 0,
+                hue: 0,
+                flyeye: 0,
+              })}
+              style={styles.filterButton}>
+              <Text style={styles.filterText}>Silvertone</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.setState({
+                blur: 0, 
+                sepia: 0,  
+                saturation: 0,
+                contrast: 1,
+                brightness: 1,
+                negative: 0,
+                hue: 0,
+                flyeye: 0,
+                })}
+              style={styles.filterButton}>
+              <Text style={styles.filterText}>Mono</Text>
+            </TouchableOpacity>
           </SafeAreaView>
           <SafeAreaView style={{ flex: 0.5, justifyContent: 'center', alignItems: "center" }}>
             <ScrollView>
