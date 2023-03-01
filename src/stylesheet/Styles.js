@@ -126,13 +126,13 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  RecentText:{
-    alignContent:"center",
-    alignSelf:'center',
+  RecentText: {
+    alignContent: "center",
+    alignSelf: 'center',
     fontWeight: "700",
     fontSize: 20,
     marginTop: 10,
-    color:"gray"
+    color: "gray"
   },
   PickImageButton: {
     backgroundColor: "#0782F9",
@@ -165,5 +165,21 @@ export default StyleSheet.create({
     width: Dimensions.get("screen").width * 0.27,
     height: Dimensions.get("screen").width * 0.27,
     marginBottom: Dimensions.get("screen").height * 0.07,
+  },
+  filterButton: {
+padding: 15,
+  },
+  filterContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  filterText: {
+
+  },
+  filterImage: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
   },
 });
