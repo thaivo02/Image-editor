@@ -9,6 +9,7 @@ import Home from "./src/screen/Home.js";
 import Login from "./src/screen/Login.js";
 import DeviceCamera from "./src/screen/DeviceCamera.js";
 import ShowImage from "./src/screen/ShowImage.js";
+import ColorscaleScreen  from "./src/screen/ColorscaleScreen.js";
 
 const Stack = createStackNavigator();
 
@@ -22,7 +23,7 @@ export default class App extends Component {
           barStyle={"dark-content"}
           translucent={true}
         />
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="colorscale">
         
           <Stack.Screen
             options={{ headerShown: false }}
@@ -44,7 +45,11 @@ export default class App extends Component {
             name="ImagePreview"
             component={ShowImage}
           ></Stack.Screen>
-        
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="colorscale"
+            component={ColorscaleScreen}
+          ></Stack.Screen>
           {/* <Edit image={this.state.image} style={styles.button} /> */}
         </Stack.Navigator>
       </NavigationContainer>
