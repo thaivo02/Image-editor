@@ -175,11 +175,20 @@ padding: 15,
     justifyContent: "center",
   },
   filterText: {
+    paddingTop: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    fontStyle: "Bold",
 
   },
   filterImage: {
-    width: 20,
-    height: 20,
+    width:40,
+    height: 40,
     borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    paddingBottom: 5,
   },
 });

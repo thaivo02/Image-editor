@@ -23,7 +23,10 @@ export default class App extends Component {
           barStyle={"dark-content"}
           translucent={true}
         />
-        <Stack.Navigator initialRouteName="colorscale">
+
+        <Stack.Navigator 
+        // initialRouteName="colorscale"
+        >
         
           <Stack.Screen
             options={{ headerShown: false }}

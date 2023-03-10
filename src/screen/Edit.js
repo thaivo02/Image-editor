@@ -253,7 +253,8 @@ export class Edit extends Component {
                 flyeye: 0,
               })}
               style={styles.filterButton}>
-              <Text style={styles.filterText}>Origin</Text>
+                              <><Image source={require('./asset/origin.png')} style={styles.filterImage} />
+                <Text style={styles.filterText}>Origin</Text></>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => this.setState({
@@ -282,7 +283,8 @@ export class Edit extends Component {
                 flyeye: 0,
               })}
               style={styles.filterButton}>
-              <Text style={styles.filterText}>Dramatic</Text>
+                                              <><Image source={require('./asset/dramatic.png')} style={styles.filterImage} />
+                <Text style={styles.filterText}>Dramatic</Text></>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => this.setState({
@@ -296,7 +298,8 @@ export class Edit extends Component {
                 flyeye: 0,
               })}
               style={styles.filterButton}>
-              <Text style={styles.filterText}>Silvertone</Text>
+                <><Image source={require('./asset/silvertone.png')} style={styles.filterImage} />
+                <Text style={styles.filterText}>Silvertone</Text></>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => this.setState({
@@ -310,7 +313,8 @@ export class Edit extends Component {
                 flyeye: 0,
               })}
               style={styles.filterButton}>
-              <Text style={styles.filterText}>Mono</Text>
+                <><Image source={require('./asset/mono.png')} style={styles.filterImage} />
+                <Text style={styles.filterText}>Mono</Text></>
             </TouchableOpacity>
           </SafeAreaView>
           <SafeAreaView style={{ flex: 0.5, justifyContent: 'center', alignItems: "center" }}>
