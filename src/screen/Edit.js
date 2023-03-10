@@ -200,7 +200,7 @@ export class Edit extends Component {
             }}
           >
 
-            <Canvas
+            {/* <Canvas
               ref={(ref) => (this.canvasRef = ref)}
               canvasStyle={{ position: "absolute", top: 0, left: 0 }}
               onDraw={this._handleDraw}
@@ -219,28 +219,26 @@ export class Edit extends Component {
                   }
                 />
               </Surface>
-            </Canvas>
+            </Canvas> */}
 
 
 
-            {/* <Surface
+            <Surface
               ref={(ref) => (this.surfaceRef = ref)}
               style={{
                 width: Dimensions.get("screen").width,
                 height: 425,
-                zIndex: 1
               }}
             >
               <ImageEffects
                 {...effects}
                 uri={
-                  this.props.route.params.image
-                    ? this.props.route.params.image
-                    : URL
+                  this.props.route.params.image ? this.props.route.params.image : URL
                 }
               />
-              <Text style={{ position: "absolute", top: 0, left: 0, color: "black", fontSize: 24 }}>Hello </Text>
-              </Surface>*/}
+
+            </Surface>
+
           </SafeAreaView>
           <SafeAreaView style={styles.filterContainer}>
             <TouchableOpacity
@@ -271,9 +269,6 @@ export class Edit extends Component {
               style={styles.filterButton}>
               <><Image source={require('./asset/vivid.png')} style={styles.filterImage} />
                 <Text style={styles.filterText}>Vivid</Text></>
-
-
-
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => this.setState({
